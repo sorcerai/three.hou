@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output
+out/
+dist/
+
+# Audio / video assets (user-supplied)
+public/music.mp3
+public/*.mp3
+public/*.wav
+public/*.flac
+
+# Claude local config
+.claude/settings.local.json
+.mcp.json
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Remotion
+.remotion/

@@ -1,0 +1,38 @@
+{
+  "name": "three-hou-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Automated YouTube music video engine. Remotion + R3F + danmaku.",
+  "scripts": {
+    "start": "remotion studio src/Root.tsx",
+    "render": "remotion render src/index.ts MusicVideo out/video.mp4 --concurrency=1",
+    "render:draft": "remotion render src/index.ts MusicVideo out/draft.mp4 --concurrency=1 --crf=30 --width=1280 --height=720 --frames=0-450",
+    "render:hq": "remotion render src/index.ts MusicVideo out/video-hq.mp4 --concurrency=1 --crf=16",
+    "render:track": "node scripts/render-track.mjs",
+    "render:visualizer": "remotion render src/index.ts AudioVisualizer out/visualizer.mp4 --concurrency=1",
+    "upgrade": "remotion upgrade",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@remotion/cli": "^4.0.448",
+    "@remotion/media-utils": "^4.0.448",
+    "@remotion/three": "^4.0.448",
+    "@types/animejs": "^3.1.13",
+    "animejs": "^4.3.6",
+    "postprocessing": "^6.39.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.448",
+    "three": "^0.170.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.170.0",
+    "typescript": "^5.7.3"
+  }
+}
