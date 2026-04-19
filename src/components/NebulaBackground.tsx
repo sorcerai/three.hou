@@ -41,14 +41,20 @@ const FRAG = /* glsl */ `
     float t = uTime * 0.05;
     vec2 q = uv * 2.0 + vec2(t, -t * 0.7);
     float n = fbm(q + fbm(q + t));
-    // Palette lerped by mid-frequency content (vocals / synth lines).
+
     vec3 magenta = vec3(0.9, 0.2, 0.7);
     vec3 cyan    = vec3(0.2, 0.7, 1.0);
     vec3 violet  = vec3(0.55, 0.25, 0.95);
     vec3 base    = mix(magenta, cyan, n);
     vec3 col     = mix(base, violet, clamp(uMid * 1.6, 0.0, 1.0));
+
+    float meltdownTrigger = smoothstep(0.7, 1.0, uBass);
+    vec3 nuclearCore   = vec3(1.0, 0.3, 0.1);
+    vec3 blindingWhite = vec3(1.0, 1.0, 1.0);
+    vec3 meltdownColor = mix(nuclearCore, blindingWhite, n * uBass);
+    col = mix(col, meltdownColor, meltdownTrigger);
+
     col *= 0.35 + uBass * 0.6;
-    // vignette
     float v = smoothstep(1.4, 0.2, length(uv));
     col *= v;
     gl_FragColor = vec4(col, 1.0);

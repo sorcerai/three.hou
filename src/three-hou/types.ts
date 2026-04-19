@@ -6,6 +6,7 @@ export const PATTERNS = {
   WAVE: 'WAVE',
   SPHERE: 'SPHERE',
   HELIX: 'HELIX',
+  NUCLEAR: 'NUCLEAR',
 } as const;
 
 export type PatternType = (typeof PATTERNS)[keyof typeof PATTERNS];

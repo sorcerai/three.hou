@@ -93,7 +93,7 @@ const SECTION_PALETTES: Record<string, string>[] = [
   { '#22e1ff': '#22e1ff', '#ff44aa': '#ff44aa', '#ffd24a': '#ffd24a', '#a35cff': '#a35cff', '#5cffb1': '#5cffb1' },
   { '#22e1ff': '#5cffb1', '#ff44aa': '#ff8844', '#ffd24a': '#ff44aa', '#a35cff': '#22e1ff', '#5cffb1': '#ffd24a' },
   { '#22e1ff': '#a35cff', '#ff44aa': '#22e1ff', '#ffd24a': '#5cffb1', '#a35cff': '#ff44aa', '#5cffb1': '#ffffff' },
-  { '#22e1ff': '#ff44aa', '#ff44aa': '#ffd24a', '#ffd24a': '#22e1ff', '#a35cff': '#5cffb1', '#5cffb1': '#a35cff' },
+  { '#22e1ff': '#ff2222', '#ff44aa': '#ffffff', '#ffd24a': '#ff8800', '#a35cff': '#ff0055', '#5cffb1': '#ffaa00' },
 ];
 
 function repaintTriggers(triggers: BeatTrigger[], sectionIndex: number, hueDrift: number): BeatTrigger[] {

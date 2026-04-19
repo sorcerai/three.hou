@@ -67,8 +67,14 @@ export function bulletVelocity(
       const turns = 4;
       const a = (i / count) * Math.PI * 2 * turns;
       const r = 1 + (i / count) * 0.3;
-      // Constant XY rotation, strong Z drift — produces a long DNA-like helix.
       return [Math.cos(a) * speed * r, Math.sin(a) * speed * r, ((i / count) - 0.5) * speed * 4];
+    }
+    case PATTERNS.NUCLEAR: {
+      const a = (i / count) * Math.PI * 2 * spread;
+      const glitch = Math.sin(age * 0.8 * frequency + (i * 13.37)) * amplitude * 0.5;
+      const r = speed * (1 + glitch);
+      const zChaos = Math.sin(i * 99.99) * speed * 3;
+      return [Math.cos(a) * r, Math.sin(a) * r, zChaos + (Math.cos(age * 0.1) * 0.5)];
     }
   }
 }

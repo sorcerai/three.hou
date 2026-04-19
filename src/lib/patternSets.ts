@@ -33,13 +33,13 @@ export function patternSetForSection(section: number, fullDurationFrames: number
         { ...common, pattern: PATTERNS.AIMED,  orbitRadius: 7, count: 16, color: C.purple },
         { ...common, pattern: PATTERNS.SPHERE, orbitRadius: 8, count: 10, color: C.green },
       ];
-    default: // Climax: chaos
+    default: // Climax: chaos (NUCLEAR MELTDOWN)
       return [
-        { ...common, pattern: PATTERNS.RING,   orbitRadius: 5, count: 16, rings: 3, color: C.cyan },
-        { ...common, pattern: PATTERNS.HELIX,  orbitRadius: 6, count: 16, color: C.pink },
-        { ...common, pattern: PATTERNS.SPIRAL, orbitRadius: 4, count: 14, color: C.yellow },
-        { ...common, pattern: PATTERNS.SPHERE, orbitRadius: 7, count: 12, color: C.purple },
-        { ...common, pattern: PATTERNS.FAN,    orbitRadius: 8, count: 14, color: C.green },
+        { ...common, pattern: PATTERNS.NUCLEAR, orbitRadius: 0, count: 48, speed: 6, color: C.pink },
+        { ...common, pattern: PATTERNS.NUCLEAR, orbitRadius: 2, count: 32, speed: 4, color: C.cyan },
+        { ...common, pattern: PATTERNS.RING,    orbitRadius: 4, count: 24, rings: 4, color: C.yellow },
+        { ...common, pattern: PATTERNS.AIMED,   orbitRadius: 7, count: 20, color: C.purple },
+        { ...common, pattern: PATTERNS.FAN,     orbitRadius: 8, count: 18, color: C.green },
       ];
   }
 }
