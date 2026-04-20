@@ -22,6 +22,16 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{ audioSrc: 'music.mp3' }}
       />
       <Composition
+        id="MusicVideoShorts"
+        component={MusicVideo}
+        durationInFrames={DURATION_SEC * FPS}
+        fps={FPS}
+        width={1080}
+        height={1920}
+        schema={musicVideoSchema}
+        defaultProps={{ audioSrc: 'music.mp3' }}
+      />
+      <Composition
         id="AudioVisualizer"
         component={AudioVisualizer}
         durationInFrames={DURATION_SEC * FPS}

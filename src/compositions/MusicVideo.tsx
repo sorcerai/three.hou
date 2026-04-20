@@ -131,8 +131,10 @@ const Scene: React.FC<{ audioSrc: string; durationSec: number }> = ({ audioSrc, 
 const DURATION_SEC = 180;
 
 const CameraPunchCanvas: React.FC<{ audioSrc: string; width: number; height: number }> = ({ audioSrc, width, height }) => {
+  // Portrait needs wider vertical FOV so bullets fill the frame.
+  const fov = width < height ? 120 : 65;
   return (
-    <ThreeCanvas width={width} height={height} camera={{ fov: 65, position: [0, 0, 12] }} gl={{ antialias: true }}>
+    <ThreeCanvas width={width} height={height} camera={{ fov, position: [0, 0, 12] }} gl={{ antialias: true }}>
       <Scene audioSrc={audioSrc} durationSec={DURATION_SEC} />
     </ThreeCanvas>
   );
