@@ -14,8 +14,8 @@ export interface DropInfo {
 }
 
 const ROLLING_WINDOW_SEC = 4;
-const DROP_RATIO = 1.7;
-const MIN_GAP_SEC = 8; // minimum distance between detected drops
+const DROP_RATIO = 2.3;
+const MIN_GAP_SEC = 40; // minimum distance between detected drops
 
 export function useDropDetection(audioSrc: string, currentFrame: number): DropInfo {
   const { fps } = useVideoConfig();

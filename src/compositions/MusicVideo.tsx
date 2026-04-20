@@ -12,7 +12,7 @@ import { useDropDetection } from '../hooks/useDropDetection';
 import { patternSetForSection } from '../lib/patternSets';
 import { useBeatMap } from '../hooks/useBeatMap';
 import { secToFrames } from '../lib/frameUtils';
-import { cameraForSection, dropTransitionOffset } from '../lib/cameraTimeline';
+import { orbitRotation, subtleShake } from '../lib/cameraTimeline';
 
 export type MusicVideoProps = {
   audioSrc: string;
@@ -69,21 +69,12 @@ const SpellRings: React.FC<{ beat: number }> = ({ beat }) => {
   );
 };
 
-// Camera rig: section-based position + bass shake + drop-transition push.
-const CameraRig: React.FC<{
-  children: React.ReactNode;
-  bass: number;
-  sectionIndex: number;
-  sectionStartFrame: number;
-}> = ({ children, bass, sectionIndex, sectionStartFrame }) => {
+const CameraRig: React.FC<{ children: React.ReactNode; bass: number }> = ({ children, bass }) => {
   const frame = useCurrentFrame();
-  const cam = cameraForSection(sectionIndex, frame, sectionStartFrame);
-  const drop = dropTransitionOffset(frame, sectionStartFrame);
-  const shakeAmt = Math.max(0, bass - 0.3) * 0.35;
-  const sx = Math.sin(frame * 13.37) * shakeAmt;
-  const sy = Math.cos(frame * 17.19) * shakeAmt;
+  const rot = orbitRotation(frame);
+  const [sx, sy] = subtleShake(frame, bass);
   return (
-    <group position={[-cam.posX * 0.3 + sx, -cam.posY * 0.3 + sy, -cam.posZ + 12 + drop.zShift]}>
+    <group rotation={rot} position={[sx, sy, 0]}>
       {children}
     </group>
   );
@@ -124,10 +115,10 @@ const Scene: React.FC<{ audioSrc: string; durationSec: number }> = ({ audioSrc, 
 
       <NebulaBackground bass={beat.bass} mid={beat.mid} />
       <Starfield count={1500} depth={100} color="#aabbff" />
-      <GridFloor bass={beat.kick} envelope={drop.envelope} />
+      <GridFloor />
       <SparkleLayer sparkle={beat.sparkle} />
 
-      <CameraRig bass={beat.kick} sectionIndex={drop.sectionIndex} sectionStartFrame={drop.sectionStartFrame}>
+      <CameraRig bass={beat.kick}>
         <BassHalo bass={beat.kick} />
         <SpellRings beat={beat.snare} />
         <TorusRing beat={beat.snare * (0.6 + drop.envelope * 0.8)} />
@@ -140,14 +131,8 @@ const Scene: React.FC<{ audioSrc: string; durationSec: number }> = ({ audioSrc, 
 const DURATION_SEC = 180;
 
 const CameraPunchCanvas: React.FC<{ audioSrc: string; width: number; height: number }> = ({ audioSrc, width, height }) => {
-  const beat = useBeatMap(audioSrc);
-  const frame = useCurrentFrame();
-  const drop = useDropDetection(audioSrc, frame);
-  const dropImp = dropTransitionOffset(frame, drop.sectionStartFrame);
-  const fov = interpolate(beat.kick, [0, 1], [65, 55], { extrapolateRight: 'clamp' }) + dropImp.fovShift;
-  const camZ = interpolate(beat.kick, [0, 1], [12, 14], { extrapolateRight: 'clamp' });
   return (
-    <ThreeCanvas width={width} height={height} camera={{ fov, position: [0, 0, camZ] }} gl={{ antialias: true }}>
+    <ThreeCanvas width={width} height={height} camera={{ fov: 65, position: [0, 0, 12] }} gl={{ antialias: true }}>
       <Scene audioSrc={audioSrc} durationSec={DURATION_SEC} />
     </ThreeCanvas>
   );
